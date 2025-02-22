@@ -1,0 +1,27 @@
+# Ignore Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+
+# Logs & Debugging Files
+*.log
+*.out
+
+# Environment Variables & Secrets
+.env
+config.json
+secrets.json
+
+# SQLite Database
+*.sqlite3
+*.db
+
+# Mitmproxy dump files
+*.dump
+
+# QR codes & OTP images
+*.png
