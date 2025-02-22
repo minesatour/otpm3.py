@@ -1,0 +1,10 @@
+selenium
+mitmproxy
+flask
+requests
+beautifulsoup4
+pycryptodome
+pillow
+sqlite3
+qrcode
+pyotp
