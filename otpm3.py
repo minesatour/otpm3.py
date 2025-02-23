@@ -35,10 +35,8 @@ OTP_KEYWORDS = [
     "Amazon OTP", "eBay Code", "Shopify Code", "Order Verification", "Delivery Confirmation Code",
     "Two-Factor Authentication", "2FA Code", "Authenticator Code", "Login Confirmation",
     "SIM Activation Code", "Phone Verification", "Carrier Code", "Mobile Code"
-]
 
-]
-
+    
 # Proxy API Configuration
 PROXY_API_URL = "https://proxyprovider.com/api/get_proxy"
 
