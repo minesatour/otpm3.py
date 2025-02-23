@@ -22,8 +22,7 @@ OTP_EXPIRY_HOURS = 24
 
 # OTP Detection Patterns
 OTP_PATTERNS = [r"\b\d{6}\b", r"\b[A-Z0-9]{8}\b"]
-OTP_KEYWORDS = [
-    "Your OTP is", "Enter this code", "Verification code",
+OTP_KEYWORDS = [ "Your OTP is", "Enter this code", "Verification code",
     "Security code", "2FA code", "One-time password",
     "Login code", "Confirm your identity", "Authenticate with this code"
     "OTP", "One-Time Password", "Verification Code", "Auth Code", "Secure Code", "Passcode",
@@ -34,7 +33,7 @@ OTP_KEYWORDS = [
     "Instagram Code", "Facebook Code", "WhatsApp Code", "Telegram Code", "Google Code", "Apple ID Code",
     "Amazon OTP", "eBay Code", "Shopify Code", "Order Verification", "Delivery Confirmation Code",
     "Two-Factor Authentication", "2FA Code", "Authenticator Code", "Login Confirmation",
-    "SIM Activation Code", "Phone Verification", "Carrier Code", "Mobile Code"
+    "SIM Activation Code", "Phone Verification", "Carrier Code", "Mobile Code" ]
 
     
 # Proxy API Configuration
