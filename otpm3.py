@@ -24,7 +24,7 @@ OTP_EXPIRY_HOURS = 24
 OTP_PATTERNS = [r"\b\d{6}\b", r"\b[A-Z0-9]{8}\b"]
 OTP_KEYWORDS = [ "Your OTP is", "Enter this code", "Verification code",
     "Security code", "2FA code", "One-time password",
-    "Login code", "Confirm your identity", "Authenticate with this code"
+    "Login code", "Confirm your identity", "Authenticate with this code",
     "OTP", "One-Time Password", "Verification Code", "Auth Code", "Secure Code", "Passcode",
     "Your verification code", "Your login code", "Enter your code", "Use this code",
     "Transaction Code", "Bank Code", "Security Code", "Payment Code", "Card Code", "Deposit Code",
@@ -97,6 +97,10 @@ class OTPGUI:
 
     def update_otp(self, otp):
         store_otp(otp)
+        # Use after to safely update GUI in main thread
+        self.master.after(0, self._update_gui, otp)
+
+    def _update_gui(self, otp):
         self.otp_label.config(text=f"Captured OTP: {otp}", fg="green")
         messagebox.showinfo("OTP Captured", f"OTP: {otp}")
 
@@ -152,7 +156,7 @@ def intercept_otp(driver, gui, allowed_sites):
                     otp_candidates = re.findall(pattern, page_source)
                     for otp in otp_candidates:
                         if any(keyword in page_source for keyword in OTP_KEYWORDS):
-                            gui.update_otp(otp)
+                            gui.master.after(0, gui.update_otp, otp)  # Safe update in main thread
                             print(f"✅ Captured OTP: {otp}")
                             return
         except Exception as e:
