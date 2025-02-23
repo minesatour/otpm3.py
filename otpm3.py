@@ -88,14 +88,17 @@ class OTPGUI:
         self.capturing = False
 
     def start_capturing(self):
+        print("Starting OTP capture...")
         self.capturing = True
         self.otp_label.config(text="Capturing OTP...", fg="yellow")
 
     def stop_capturing(self):
+        print("Stopping OTP capture...")
         self.capturing = False
         self.otp_label.config(text="Stopped", fg="red")
 
     def update_otp(self, otp):
+        print(f"OTP Captured: {otp}")
         store_otp(otp)
         # Use after to safely update GUI in main thread
         self.master.after(0, self._update_gui, otp)
@@ -107,6 +110,7 @@ class OTPGUI:
 # PROXY HANDLING
 def get_proxy():
     try:
+        print("Fetching proxy...")
         response = requests.get(PROXY_API_URL)
         proxy_data = response.json()
         return proxy_data.get("proxy")
@@ -116,6 +120,7 @@ def get_proxy():
 
 # CHROME DRIVER SETUP
 def launch_chrome(target_url, use_proxy=False):
+    print(f"Launching Chrome for {target_url}...")
     chrome_options = ChromeOptions()
     chrome_options.add_argument(f"user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
     chrome_options.add_argument("--ignore-certificate-errors")
@@ -147,6 +152,7 @@ def load_allowed_sites():
 
 # OTP INTERCEPTION
 def intercept_otp(driver, gui, allowed_sites):
+    print("Starting OTP interception...")
     while gui.capturing:
         time.sleep(random.uniform(2, 5))
         try:
@@ -180,6 +186,11 @@ def main():
 
     allowed_sites = load_allowed_sites()
     target_url = simpledialog.askstring("Target Website", "Enter the OTP website URL:")
+
+    if not target_url:
+        print("No target URL provided.")
+        messagebox.showerror("Error", "Please enter a valid URL.")
+        return
 
     driver = launch_chrome(target_url, use_proxy)
     intercept_thread = threading.Thread(target=intercept_otp, args=(driver, gui, allowed_sites))
